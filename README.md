@@ -6,6 +6,18 @@
 
 **接入企业私有数据并不难，难的是让正确的记忆在正确的权限边界里持续存在。**
 
+## 阅读顺序
+
+| 顺序 | 先看哪里 | 重点看什么 | 对应代码 / 文档 |
+| --- | --- | --- | --- |
+| 1 | 快速开始 | 先跑通 demo，观察不同用户看到的上下文不同 | `shared_memory_agent/seed.py`, `shared_memory_agent/cli.py` |
+| 2 | 核心架构 | 理解四层上下文：会话、个人、团队共享、企业私有数据 | `shared_memory_agent/models.py` |
+| 3 | 请求流 | 看清楚为什么要先鉴权再检索 | `shared_memory_agent/policy.py`, `shared_memory_agent/private_data.py` |
+| 4 | 写回流 | 理解为什么写回比检索更需要克制 | `shared_memory_agent/writeback.py`, `shared_memory_agent/memory_store.py` |
+| 5 | Demo 用户 | 对比 `alice`、`bob`、`cara` 的权限差异 | `shared_memory_agent/policy.py` |
+| 6 | 最佳实践映射 | 把 demo 代码和企业 Agent 设计原则对应起来 | `tests/test_policy_and_memory.py` |
+| 7 | 架构设计说明 | 进一步看生产化扩展、权限模型和写回策略 | `docs/architecture.md` |
+
 ## 这个 Demo 想回答什么
 
 很多 Agent 项目一开始会走得很快：接一个 LLM，接一个向量库，把内部文档灌进去，再加几个工具调用，看起来就已经能回答不少问题了。但一旦进入真实企业环境，问题会很快冒出来：
@@ -209,4 +221,3 @@ agent-shared-memory-demo/
 **企业级 Agent 的上下文系统不应该只是一个更大的知识库，而应该是一套有权限、有生命周期、有写回策略的记忆系统。**
 
 检索解决的是“现在知道什么”，记忆解决的是“以后还应该记得什么”。这两件事一旦混在一起，短期看起来会很智能，长期一定会变得难解释。
-
